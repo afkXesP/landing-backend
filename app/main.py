@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -20,6 +21,8 @@ setup_logging()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    Path("storage").mkdir(parents=True, exist_ok=True)
+
     Base.metadata.create_all(bind=engine)
     yield
 
