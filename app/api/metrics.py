@@ -11,5 +11,5 @@ router = APIRouter(
 
 @router.get("", response_model=MetricsResponse, status_code=status.HTTP_200_OK)
 def get_metrics(service: ContactServiceDependency) -> MetricsResponse:
-    return service.metrics()
+    return service.get_metrics()
 

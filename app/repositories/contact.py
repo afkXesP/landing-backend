@@ -20,8 +20,16 @@ class ContactRepository:
         return self.db.scalar(stmt) or 0
 
     def get_category_counts(self) -> dict[str, int]:
-        stmt = (select(ContactRequest.category, func.count(ContactRequest.id)).
-                group_by(ContactRequest.category))
-        res = self.db.execute(stmt).all()
+        stmt = (
+            select(ContactRequest.category, func.count(ContactRequest.id))
+            .group_by(ContactRequest.category)
+        )
 
-        return dict(sorted(res.items(), key=lambda item: item[0]))
+        result = self.db.execute(stmt).all()
+
+        return dict(
+            sorted(
+                ((category.value, count) for category, count in result),
+                key=lambda x: x[0],
+            )
+        )
