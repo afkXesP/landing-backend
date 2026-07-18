@@ -17,6 +17,6 @@ class ContactRequest(Base):
     phone: Mapped[str] = mapped_column(String(30))
     message: Mapped[str] = mapped_column(Text)
 
-    category: Mapped[str] = mapped_column(String(50), default=RequestCategory.UNKNOWN)
-    sentiment: Mapped[str] = mapped_column(String(30), default=Sentiment.UNKNOWN)
+    category: Mapped[str] = mapped_column(String(50), default=RequestCategory.UNKNOWN.value)
+    sentiment: Mapped[str] = mapped_column(String(30), default=Sentiment.UNKNOWN.value)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

@@ -27,9 +27,4 @@ class ContactRepository:
 
         result = self.db.execute(stmt).all()
 
-        return dict(
-            sorted(
-                ((category.value, count) for category, count in result),
-                key=lambda x: x[0],
-            )
-        )
+        return {category: count for category, count in result}
